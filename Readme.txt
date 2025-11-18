@@ -85,3 +85,34 @@ Response 201 Created:
   "monthlyPremium": 375.00
 }
 
+The exact sample outputs (from the table I generated): 
+
+I computed premiums for 2 sample users. Here are the rows (exact values):
+
+Alice — Doctor (factor 1.5), Age 30, Death Sum = 100,000
+
+Yearly = (100000 * 1.5 * 30) / 1000 = 4500.00
+
+Monthly = 4500 / 12 = 375.00
+
+Bob — Cleaner (factor 11.5), Age 30, Death Sum = 100,000
+
+Yearly = (100000 * 11.5 * 30) / 1000 = 34500.00
+
+Monthly = 34500 / 12 = 2875.00
+
++----+-------+-------------------+--------------------+----------------+------------------+----------------+
+| Id | Name  | AgeNextBirthday  | DateOfBirthMMYYYY | OccupationCode | DeathSumInsured  | MonthlyPremium |
++----+-------+-------------------+--------------------+----------------+------------------+----------------+
+| 1  | Alice |        30        |      10/1995       |     Doctor     |     100000       |     375.00     |
++----+-------+-------------------+--------------------+----------------+------------------+----------------+
+Explanation of exact numeric outputs — real example walkthrough (Alice): 
+Inputs: DeathSumInsured = 100,000, Occupation factor = 1.5, AgeNextBirthday = 30
+
+Step 1: compute death * factor * age → 100000 * 1.5 * 30 = 4,500,000
+
+Step 2: divide by 1000 → 4,500,000 / 1000 = 4500 (this is the yearly premium)
+
+Step 3: monthly = yearly / 12 → 4500 / 12 = 375
+So output monthlyPremium = 375.00. The API returns that decimal rounded to 2 places.
+
